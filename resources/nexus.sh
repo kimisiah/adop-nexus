@@ -4,6 +4,13 @@ set -e
 echo "Starting Nexus."
 echo "$(date) - LDAP Enabled: ${LDAP_ENABLED}"
 
+# Export Openshift Secrets
+if [[ -n "$SECRETS_DIR" && -d "$SECRETS_DIR" ]]
+  then
+  # SECRETS_DIR contains secret files, each file has KEY=VALUE content
+  eval $(cat $SECRETS_DIR/*)
+fi
+
 # Copy config files.
 mkdir -p ${NEXUS_HOME}conf
 

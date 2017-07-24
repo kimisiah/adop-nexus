@@ -1,11 +1,18 @@
-FROM sonatype/nexus:2.11.2-06
+FROM sonatype/nexus:2.14.4-03
 
 MAINTAINER Robert Northard, <robert.a.northard>
+
+USER root
+
+RUN yum install -y java-1.8.0-openjdk.x86_64
+
+USER nexus
 
 ENV LDAP_ENABLED=true \
     CONTEXT_PATH=/nexus \
     NEXUS_HOME=/sonatype-work/ \
     DEBUG_LOGGING=false \
+    SECRETS_DIR=/etc/secrets \
     LDAP_SEARCH_BASE="" \
     LDAP_URL="" \
     LDAP_PORT=389 \
