@@ -6,6 +6,8 @@ USER root
 
 RUN yum install -y java-1.8.0-openjdk.x86_64
 
+RUN chmod 775 /etc/passwd
+
 USER nexus
 
 ENV LDAP_ENABLED=true \

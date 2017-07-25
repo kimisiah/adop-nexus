@@ -11,6 +11,13 @@ if [[ -n "$SECRETS_DIR" && -d "$SECRETS_DIR" ]]
   eval $(cat $SECRETS_DIR/*)
 fi
 
+# Add default user to /etc/passwd
+if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"997" ]; then
+
+    echo "default:x:${USER_ID}:${GROUP_ID}:Default Application User:${HOME}:/sbin/nologin" >> /etc/passwd
+
+fi
+
 # Copy config files.
 mkdir -p ${NEXUS_HOME}conf
 
@@ -170,7 +177,7 @@ else
 fi
  
 # chown the nexus home directory
-chown -R nexus:nexus ${NEXUS_HOME}
+# chown -R nexus:nexus ${NEXUS_HOME}
  
 # start nexus as the nexus user
 su -c "java \
@@ -178,4 +185,4 @@ su -c "java \
 -Xms${MIN_HEAP} -Xmx${MAX_HEAP} \
 -cp 'conf/:lib/*' \
 ${JAVA_OPTS} \
-org.sonatype.nexus.bootstrap.Launcher ${LAUNCHER_CONF}" -s /bin/bash nexus
+org.sonatype.nexus.bootstrap.Launcher ${LAUNCHER_CONF}" -s /bin/bash default #nexus
