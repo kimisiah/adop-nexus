@@ -15,7 +15,6 @@ fi
 if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"997" ]; then
 
     echo "default:x:${USER_ID}:${GROUP_ID}:Default Application User:${HOME}:/sbin/nologin" >> /etc/passwd
-    echo "default user created..."
 
 fi
 
@@ -181,9 +180,10 @@ fi
 # chown -R nexus:nexus ${NEXUS_HOME}
  
 # start nexus as the nexus user
-su -c "java \
+# su -c 
+java \
 -Dnexus-work=${SONATYPE_WORK} -Dnexus-webapp-context-path=${CONTEXT_PATH} \
 -Xms${MIN_HEAP} -Xmx${MAX_HEAP} \
 -cp 'conf/:lib/*' \
 ${JAVA_OPTS} \
-org.sonatype.nexus.bootstrap.Launcher ${LAUNCHER_CONF}" -s /bin/bash default #nexus
+org.sonatype.nexus.bootstrap.Launcher ${LAUNCHER_CONF} #-s /bin/bash #nexus
