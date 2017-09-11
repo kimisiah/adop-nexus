@@ -1,4 +1,5 @@
-FROM sonatype/nexus:2.14.4-03
+#FROM sonatype/nexus:2.14.4-03
+FROM sonatype/docker-nexus3:latest
 
 MAINTAINER Robert Northard, <robert.a.northard>
 
